@@ -1,0 +1,1245 @@
+# ----- Main function -----
+__main__.main
+
+    # ----- Create event loop -----
+    asyncio.events.new_event_loop
+
+    # ----- Set as global event loop -----
+    asyncio.events.set_event_loop
+
+    # ----- Call coroutine function `create_server` -----
+    asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.create_server
+
+    # ----- Call `run_until_complete` -----
+    asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.run_until_complete
+
+        # ----- Call `ensure_future` -----
+        asyncio.tasks.ensure_future
+
+            # ----- Create task to tick the coroutine in an asynchronous loop -----
+            # Coroutine is `asyncio.base_events.BaseEventLoop.create_server`.
+            #
+            asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.create_task
+
+                # ----- Create `Task` -----
+                # 7NZY5
+                #
+                asyncio.tasks.Task.__init__
+
+                    # ----- Call super method -----
+                    asyncio.tasks.Task -> asyncio.futures.Future.__init__
+
+                    # ----- Call `call_soon` -----
+                    # 2TGSP
+                    #
+                    # Callback is `asyncio.tasks.Task._step` that ticks coroutine
+                    # `asyncio.base_events.BaseEventLoop.create_server`.
+                    #
+                    asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.call_soon
+
+                        # ----- Call `_call_soon` -----
+                        asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop._call_soon
+
+                            # ----- Create `Handle` -----
+                            asyncio.events.Handle.__init__
+
+                            # ----- Add `Handle` object to `self._ready` list -----
+
+                        # ===== asyncio.base_events.BaseEventLoop._call_soon =====
+
+                    # ===== asyncio.base_events.BaseEventLoop.call_soon =====
+
+                # ===== asyncio.tasks.Task.__init__ =====
+
+            # ===== asyncio.base_events.BaseEventLoop.create_task =====
+
+        # ===== asyncio.tasks.ensure_future =====
+        # 3SRQ1
+        #
+        # Return value is the task object created at 7NZY5.
+
+        # ----- Add done callback to future object -----
+        # 5MLSH
+        #
+        # Callback is `asyncio.base_events._run_until_complete_cb`.
+        #
+        asyncio.tasks.Task -> asyncio.futures.Future.add_done_callback
+
+        # ----- Call `run_forever` -----
+        asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.run_forever
+
+            # ----- Call `_run_once` -----
+            asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop._run_once
+
+                # ----- Poll events -----
+                selectors.SelectSelector.select
+
+                # ----- Call `_process_events` -----
+                asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.selector_events.BaseSelectorEventLoop._process_events
+
+                # ----- Add due callbacks to `self._ready` list  -----
+
+                # ----- Call callbacks in `self._ready` list  -----
+
+                    # ----- Call `run` -----
+                    asyncio.events.Handle._run
+
+                        # ----- Call `_step` -----
+                        # This is scheduled at 2TGSP.
+                        #
+                        asyncio.tasks.Task._step
+
+                            # ----- Tick coroutine -----
+                            # Coroutine is `asyncio.base_events.BaseEventLoop.create_server`.
+
+                                # ----- Call coroutine function `_create_server_getaddrinfo` -----
+                                asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop._create_server_getaddrinfo
+
+                                # ----- Call `gather` -----
+                                asyncio.tasks.gather
+
+                                    # ----- Call `ensure_future` -----
+                                    asyncio.tasks.ensure_future
+
+                                        # ----- Create task to tick the coroutine in an asynchronous loop -----
+                                        # Coroutine is `asyncio.base_events.BaseEventLoop._create_server_getaddrinfo`.
+                                        #
+                                        asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.create_task
+
+                                            # ----- Create `Task` -----
+                                            asyncio.tasks.Task.__init__
+
+                                                # ----- Call super method -----
+                                                asyncio.tasks.Task -> asyncio.futures.Future.__init__
+
+                                                # ----- Call `call_soon` -----
+                                                # 2MYRG
+                                                #
+                                                # Callback is `asyncio.tasks.Task._step` that ticks coroutine
+                                                # `asyncio.base_events.BaseEventLoop._create_server_getaddrinfo`.
+                                                #
+                                                asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.call_soon
+
+                                            # ===== asyncio.tasks.Task.__init__ =====
+
+                                        # ===== asyncio.base_events.BaseEventLoop.create_task =====
+
+                                    # ===== asyncio.tasks.ensure_future =====
+
+                                    # ----- Create `_GatheringFuture` -----
+                                    # 4CFUB
+                                    #
+                                    asyncio.tasks._GatheringFuture.__init__
+
+                                    # ----- For each original future object -----
+
+                                        # ----- Add done callback -----
+                                        # 6QKEI
+                                        #
+                                        # Callback is `gather.<locals>._done_callback`.
+                                        #
+                                        asyncio.tasks.Task -> asyncio.futures.Future.add_done_callback
+
+                                    # ===== For each original future object =====
+
+                                # ===== asyncio.tasks.gather =====
+                                # Return value is the future object created at 4CFUB.
+
+                                # ----- Yield from future object -----
+                                # 35CM0
+                                #
+                                # The future object is created at 4CFUB.
+                                #
+                                ```
+                                infos = yield from tasks.gather(*fs, loop=self)
+                                ```
+
+                            # ===== Tick coroutine =====
+                            # Coroutine is `asyncio.base_events.BaseEventLoop.create_server`.
+                            #
+                            # Yielded value is the future object created at 4CFUB
+
+                            # ----- Add done callback to future object -----
+                            # 5JT89
+                            #
+                            # Callback is `asyncio.tasks.Task._wakeup` that ticks coroutine
+                            # `asyncio.base_events.BaseEventLoop.create_server`.
+                            #
+                            asyncio.tasks._GatheringFuture -> asyncio.futures.Future.add_done_callback
+
+                        # ===== asyncio.tasks.Task._step =====
+
+                    # ===== asyncio.events.Handle._run =====
+
+                # ===== Call callbacks in `self._ready` list  =====
+
+            # ===== asyncio.base_events.BaseEventLoop._run_once =====
+
+            # ----- Call `_run_once` -----
+            asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop._run_once
+
+                # ----- Poll events -----
+                selectors.SelectSelector.select
+
+                # ----- Call `_process_events` -----
+                asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.selector_events.BaseSelectorEventLoop._process_events
+
+                # ----- Add due callbacks to `self._ready` list  -----
+
+                # ----- Call callbacks in `self._ready` list  -----
+
+                    # ----- Call `run` -----
+                    asyncio.events.Handle._run
+
+                        # ----- Call `_step` -----
+                        # This is scheduled at 2MYRG.
+                        #
+                        asyncio.tasks.Task._step
+
+                            # ----- Tick coroutine -----
+                            # Coroutine is `asyncio.base_events.BaseEventLoop._create_server_getaddrinfo`.
+
+                                # ----- Resolve host and port from textual to binary -----
+                                asyncio.base_events._ensure_resolved
+
+                                    # ----- Resolve host and port from textual to binary -----
+                                    # E.g. host `127.0.0.1` -> b'\x7f\x00\x00\x01', port `http` -> `80`.
+                                    #
+                                    # Notice host domain names can not be resolved in `_ipaddr_info`.
+                                    #
+                                    asyncio.base_events._ipaddr_info
+
+                                    # ----- If host is resolved -----
+
+                                        # ----- Create future object -----
+                                        # 3OAMP
+                                        #
+                                        asyncio.futures.Future.__init__
+
+                                        # ----- Return resolved future -----
+
+                                    # ===== If host is resolved =====
+
+                                    # ----- If host is not resolved -----
+
+                                        # ----- Call `getaddrinfo` -----
+                                        asyncio.base_events.BaseEventLoop.getaddrinfo
+
+                                        # ===== asyncio.base_events.BaseEventLoop.getaddrinfo =====
+                                        # 78RBF
+                                        #
+                                        # Return value is future object.
+
+                                    # ===== If host is not resolved =====
+
+                                # ===== asyncio.base_events._ensure_resolved =====
+                                # 7KPOU
+                                #
+                                # Return value is future object created at 3OAMP or returned from 78RBF.
+
+                                # ----- Yield from future object -----
+                                # The future object is returned from 7KPOU.
+                                #
+                                ```
+                                infos = yield from _ensure_resolved((host, port), family=family,
+                                ```
+
+                                    # ----- Tick future object's generator -----
+
+                                    # ===== Tick future object's generator =====
+                                    # The future object's generator terminated.
+                                    #
+                                    # Return value is the future object's result.
+
+                                # ===== Yield from future object =====
+                                # Return value is the result of the future object returned from 7KPOU.
+
+                            # ===== Tick coroutine =====
+                            # Coroutine is `asyncio.base_events.BaseEventLoop._create_server_getaddrinfo`.
+                            #
+                            # The coroutine terminated.
+                            # Return value is the result of the future object returned from 7KPOU.
+
+                            # ----- Set the task's future object's result -----
+                            asyncio.tasks.Task -> asyncio.futures.Future.set_result
+
+                                # ----- Call `_schedule_callbacks` -----
+                                asyncio.tasks.Task -> asyncio.futures.Future._schedule_callbacks
+
+                                    # ----- For each callback in `self._callbacks` -----
+
+                                        # ----- Call `call_soon`  -----
+                                        # 4ZHEP
+                                        #
+                                        # Callback is `gather.<locals>._done_callback` added at 6QKEI.
+                                        #
+                                        asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.call_soon
+
+                                    # ===== For each callback in `self._callbacks` =====
+
+                                # ===== asyncio.futures.Future._schedule_callbacks =====
+
+                            # ===== asyncio.futures.Future.set_result =====
+
+                        # ===== asyncio.tasks.Task._step =====
+
+                    # ===== asyncio.events.Handle._run =====
+
+                # ===== Call callbacks in `self._ready` list  =====
+
+            # ===== asyncio.base_events.BaseEventLoop._run_once =====
+
+            # ----- Call `_run_once` -----
+            asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop._run_once
+
+                # ----- Poll events -----
+                selectors.SelectSelector.select
+
+                # ----- Call `_process_events` -----
+                asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.selector_events.BaseSelectorEventLoop._process_events
+
+                # ----- Add due callbacks to `self._ready` list  -----
+
+                # ----- Call callbacks in `self._ready` list  -----
+
+                    # ----- Call `run` -----
+                    asyncio.events.Handle._run
+
+                        # ----- Call `_done_callback` -----
+                        # This is scheduled at 4ZHEP.
+                        #
+                        gather.<locals>._done_callback
+
+                            # ----- Call `set_result` -----
+                            asyncio.tasks._GatheringFuture -> asyncio.futures.Future.set_result
+
+                                # ----- Call `_schedule_callbacks` -----
+                                asyncio.tasks._GatheringFuture -> asyncio.futures.Future._schedule_callbacks
+
+                                    # ----- Call `call_soon`  -----
+                                    # 3HYLJ
+                                    #
+                                    # The callback is `asyncio.tasks.Task._wakeup` added at 5JT89.
+                                    #
+                                    asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.call_soon
+
+                                # ===== asyncio.futures.Future._schedule_callbacks =====
+
+                            # ===== asyncio.futures.Future.set_result =====
+
+                        # ===== asyncio.tasks.Task._step =====
+
+                    # ===== asyncio.events.Handle._run =====
+
+                # ===== Call callbacks in `self._ready` list  =====
+
+            # ===== asyncio.base_events.BaseEventLoop._run_once =====
+
+            # ----- Call `_run_once` -----
+            asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop._run_once
+
+                # ----- Poll events -----
+                selectors.SelectSelector.select
+
+                # ----- Call `_process_events` -----
+                asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.selector_events.BaseSelectorEventLoop._process_events
+
+                # ----- Add due callbacks to `self._ready` list  -----
+
+                # ----- Call callbacks in `self._ready` list  -----
+
+                    # ----- Call `run` -----
+                    asyncio.events.Handle._run
+
+                        # ----- Call `_wakeup` -----
+                        # This is scheduled at 3HYLJ.
+                        #
+                        asyncio.tasks.Task._wakeup
+
+                            # ----- Call `_step` -----
+                            asyncio.tasks.Task._step
+
+                                # ----- Tick coroutine -----
+                                # Coroutine is `asyncio.base_events.BaseEventLoop.create_server`.
+
+                                    # ----- Resume from previous yield point -----
+                                    # Previous yield point is at 35CM0.
+                                    #
+                                    ```
+                                    infos = yield from tasks.gather(*fs, loop=self)
+                                    ```
+
+                                    # ----- Create listening socket -----
+                                    socket.socket.__init__
+
+                                    # ----- Bind listening socket -----
+                                    socket.socket -> _socket.socket.bind
+
+                                    # ----- Create `Server` -----
+                                    # 28U6Y
+                                    #
+                                    asyncio.base_events.Server.__init__
+
+                                    # ----- Start socket listening -----
+                                    socket.socket -> _socket.socket.listen
+
+                                    # ----- Set listening socket be non-blocking -----
+                                    socket.socket -> _socket.socket.setblocking
+
+                                    # ----- Call `_start_serving` -----
+                                    asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.selector_events.BaseSelectorEventLoop._start_serving
+
+                                        # ----- Add read event handler for the listening socket -----
+                                        # 3ZLXR
+                                        #
+                                        # Callback is `asyncio.selector_events.BaseSelectorEventLoop._accept_connection`.
+                                        #
+                                        asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.selector_events.BaseSelectorEventLoop.add_reader
+
+                                            # ----- Create `Handle` -----
+                                            asyncio.events.Handle.__init__
+
+                                            # ----- Register file descriptor to event selector -----
+                                            selectors.SelectSelector.register
+
+                                        # ===== asyncio.selector_events.BaseSelectorEventLoop.add_reader =====
+
+                                    # ===== asyncio.selector_events.BaseSelectorEventLoop._start_serving =====
+
+                                # ===== Tick coroutine =====
+                                # Coroutine is `asyncio.base_events.BaseEventLoop.create_server`.
+                                #
+                                # The coroutine terminated.
+                                # Return value is the `Server` instance created at 28U6Y.
+
+                            # ----- Set the task's future object's result -----
+                            asyncio.tasks.Task -> asyncio.futures.Future.set_result
+
+                                # ----- Call `_schedule_callbacks` -----
+                                asyncio.tasks.Task -> asyncio.futures.Future._schedule_callbacks
+
+                                    # ----- For each callback in `self._callbacks` -----
+
+                                        # ----- Call `call_soon`  -----
+                                        # 368VG
+                                        #
+                                        # Callback is `asyncio.base_events._run_until_complete_cb` added at 5MLSH.
+                                        #
+                                        asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.call_soon
+
+                                    # ===== For each callback in `self._callbacks` =====
+
+                                # ===== asyncio.futures.Future._schedule_callbacks =====
+
+                            # ===== asyncio.futures.Future.set_result =====
+
+                        # ===== asyncio.tasks.Task._step =====
+
+                    # ===== asyncio.events.Handle._run =====
+
+                # ===== Call callbacks in `self._ready` list  =====
+
+            # ===== asyncio.base_events.BaseEventLoop._run_once =====
+
+            # ----- Call `_run_once` -----
+            asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop._run_once
+
+                # ----- Poll events -----
+                selectors.SelectSelector.select
+
+                # ----- Call `_process_events` -----
+                asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.selector_events.BaseSelectorEventLoop._process_events
+
+                # ----- Add due callbacks to `self._ready` list  -----
+
+                # ----- Call callbacks in `self._ready` list  -----
+
+                    # ----- Call `run` -----
+                    asyncio.events.Handle._run
+
+                        # ----- Call `_run_until_complete_cb` -----
+                        # This is scheduled at 368VG.
+                        #
+                        asyncio.base_events._run_until_complete_cb
+
+                            # ----- Call `stop` -----
+                            asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.stop
+
+                        # ===== asyncio.base_events._run_until_complete_cb =====
+
+                    # ===== asyncio.events.Handle._run =====
+
+                # ===== Call callbacks in `self._ready` list  =====
+
+            # ===== asyncio.base_events.BaseEventLoop._run_once =====
+
+        # ===== asyncio.base_events.BaseEventLoop.run_forever =====
+
+        # ----- Call `remove_done_callback` -----
+        # Remove callback `asyncio.base_events._run_until_complete_cb` added at 5MLSH.
+        #
+        asyncio.tasks.Task -> asyncio.futures.Future.remove_done_callback
+
+        # ----- Get future object's result -----
+        # The future object is created at 3SRQ1.
+
+    # ===== asyncio.base_events.BaseEventLoop.run_until_complete =====
+    # Return value is the result of the future object created at 3SRQ1,
+    # which is the `Server` instance created at 28U6Y.
+
+    # ----- Call coroutine function `wait_closed` -----
+    asyncio.base_events.Server.wait_closed
+
+    # ----- Call `run_until_complete` -----
+    asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.run_until_complete
+
+        # ----- Call `ensure_future` -----
+        # 4GPYM
+        #
+        asyncio.tasks.ensure_future
+
+            # ----- Create task to tick the coroutine in an asynchronous loop -----
+            # Coroutine is `asyncio.base_events.Server.wait_closed`.
+            #
+            asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.create_task
+
+                # ----- Create `Task` -----
+                asyncio.tasks.Task.__init__
+
+                    # ----- Call super method -----
+                    asyncio.tasks.Task -> asyncio.futures.Future.__init__
+
+                    # ----- Call `call_soon` -----
+                    # 3H06X
+                    #
+                    # Callback is `asyncio.tasks.Task._step` that ticks coroutine
+                    # `asyncio.base_events.Server.wait_closed`.
+                    #
+                    asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.call_soon
+
+                # ===== asyncio.tasks.Task.__init__ =====
+
+            # ===== asyncio.base_events.BaseEventLoop.create_task =====
+
+        # ----- Add done callback to future object -----
+        # 2FK1W
+        #
+        # Callback is `asyncio.base_events._run_until_complete_cb`.
+        #
+        asyncio.tasks.Task -> asyncio.futures.Future.add_done_callback
+
+        # ----- Call `run_forever` -----
+        asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.run_forever
+
+            # ----- Call `_run_once` -----
+            asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop._run_once
+
+                # ----- Poll events -----
+                selectors.SelectSelector.select
+
+                # ----- Call `_process_events` -----
+                asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.selector_events.BaseSelectorEventLoop._process_events
+
+                # ----- Add due callbacks to `self._ready` list  -----
+
+                # ----- Call callbacks in `self._ready` list  -----
+
+                    # ----- Call `run` -----
+                    asyncio.events.Handle._run
+
+                        # ----- Call `_step` -----
+                        # This is scheduled at 3H06X.
+                        #
+                        asyncio.tasks.Task._step
+
+                            # ----- Tick coroutine -----
+                            # Coroutine is `asyncio.base_events.Server.wait_closed`.
+
+                                # ----- Create future object -----
+                                # 715TO
+                                #
+                                asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.create_future
+
+                                    # ----- Create future object -----
+                                    asyncio.futures.Future.__init__
+
+                                # ----- Yield from future object -----
+                                # 24VNY
+                                #
+                                ```
+                                yield from waiter
+                                ```
+
+                                    # ----- Tick future object's generator -----
+
+                                    # ===== Tick future object's generator =====
+                                    # Yielded value is the future object itself.
+
+                                # ===== Yield from future object =====
+                                # Yielded value is the future object created at 715TO.
+
+                            # ===== Tick coroutine =====
+                            # Yielded value is the future object created at 715TO.
+
+                            # ----- Add done callback to future object -----
+                            # 1UFQ3
+                            #
+                            # Callback is `asyncio.tasks.Task._wakeup` that ticks coroutine
+                            # `asyncio.base_events.Server.wait_closed`.
+                            #
+                            asyncio.tasks.Task -> asyncio.futures.Future.add_done_callback
+
+                        # ===== asyncio.tasks.Task._step =====
+
+                    # ===== asyncio.events.Handle._run =====
+
+                # ===== Call callbacks in `self._ready` list  =====
+
+            # ===== asyncio.base_events.BaseEventLoop._run_once =====
+
+            # ----- Call `_run_once` -----
+            asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop._run_once
+
+                # ----- Poll events -----
+                selectors.SelectSelector.select
+
+                # ----- Call `_process_events` -----
+                asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.selector_events.BaseSelectorEventLoop._process_events
+
+                    # ----- Call `_add_callback` -----
+                    asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop._add_callback
+
+                        # ----- Add event-occuring file descriptor's `Handle` object to `self._ready` list -----
+                        # 1EHFC
+                        #
+                        # The callback is `asyncio.selector_events.BaseSelectorEventLoop._accept_connection`
+                        # added at 3ZLXR.
+
+                    # ===== asyncio.base_events.BaseEventLoop._add_callback =====
+
+                # ----- Add due callbacks to `self._ready` list  -----
+
+                # ----- Call callbacks in `self._ready` list  -----
+
+                    # ----- Call `run` -----
+                    asyncio.events.Handle._run
+
+                        # ----- Call `_accept_connection` -----
+                        # This is scheduled at 1EHFC.
+                        #
+                        asyncio.selector_events.BaseSelectorEventLoop._accept_connection
+
+                            # ----- Accept connection -----
+                            socket.socket.accept
+
+                            # ----- Set connection socket be non-bloking -----
+                            socket.socket -> _socket.socket.setblocking
+
+                            # ----- Call coroutine function `_accept_connection2` -----
+                            asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.selector_events.BaseSelectorEventLoop._accept_connection2
+
+                            # ----- Create task to tick the coroutine in an asynchronous loop -----
+                            # Coroutine is `asyncio.selector_events.BaseSelectorEventLoop._accept_connection2`.
+                            #
+                            asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.create_task
+
+                                # ----- Create `Task` -----
+                                asyncio.tasks.Task.__init__
+
+                                    # ----- Call super method -----
+                                    asyncio.tasks.Task -> asyncio.futures.Future.__init__
+
+                                    # ----- Call `call_soon` -----
+                                    # 39UDJ
+                                    #
+                                    # Callback is `asyncio.tasks.Task._step` that ticks coroutine
+                                    # `asyncio.selector_events.BaseSelectorEventLoop._accept_connection2`.
+                                    #
+                                    asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.call_soon
+
+                                # ===== asyncio.tasks.Task.__init__ =====
+
+                            # ===== asyncio.base_events.BaseEventLoop.create_task =====
+
+                        # ===== asyncio.selector_events.BaseSelectorEventLoop._accept_connection =====
+
+                    # ===== asyncio.events.Handle._run =====
+
+                # ===== Call callbacks in `self._ready` list  =====
+
+            # ===== asyncio.base_events.BaseEventLoop._run_once =====
+
+            # ----- Call `_run_once` -----
+            asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop._run_once
+
+                # ----- Poll events -----
+                selectors.SelectSelector.select
+
+                # ----- Call `_process_events` -----
+                asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.selector_events.BaseSelectorEventLoop._process_events
+
+                # ----- Add due callbacks to `self._ready` list  -----
+
+                # ----- Call callbacks in `self._ready` list  -----
+
+                    # ----- Call `run` -----
+                    asyncio.events.Handle._run
+
+                        # ----- Call `_step` -----
+                        # This is scheduled at 39UDJ.
+                        #
+                        asyncio.tasks.Task._step
+
+                            # ----- Tick coroutine -----
+                            # Coroutine is `asyncio.selector_events.BaseSelectorEventLoop._accept_connection2`.
+
+                                # ----- Create `EchoProtocol` -----
+                                __main__.EchoProtocol -> builtins.object.__init__
+
+                                # ----- Create future object -----
+                                # 3AJ0I
+                                #
+                                asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.create_future
+
+                                # ----- Call `_make_socket_transport` -----
+                                # Argument `waiter` is the future object created at 3AJ0I.
+                                #
+                                asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.selector_events.BaseSelectorEventLoop._make_socket_transport
+
+                                    # 5HKJA
+                                    # ----- Create `_SelectorSocketTransport` -----
+                                    asyncio.selector_events._SelectorSocketTransport.__init__
+
+                                        # ----- Call super method -----
+                                        asyncio.selector_events._SelectorSocketTransport -> asyncio.selector_events._SelectorTransport.__init__
+
+                                            # ----- Call super method -----
+                                            asyncio.selector_events._SelectorSocketTransport -> asyncio.transports._FlowControlMixin.__init__
+
+                                                # ----- Call super method -----
+                                                asyncio.selector_events._SelectorSocketTransport -> asyncio.transports.BaseTransport.__init__
+
+                                            # ===== asyncio.transports._FlowControlMixin.__init__ =====
+
+                                            # ----- Call `_attach` -----
+                                            asyncio.base_events.Server._attach
+
+                                        # ===== asyncio.selector_events._SelectorTransport.__init__ =====
+
+                                    # ===== asyncio.selector_events._SelectorSocketTransport.__init__ =====
+
+                                    # ----- Call `call_soon` -----
+                                    # 2M1TX
+                                    #
+                                    # Callback is `__main__.EchoProtocol.connection_made`.
+                                    #
+                                    asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.call_soon
+
+                                    # ----- Call `call_soon` -----
+                                    # 3IEW9
+                                    #
+                                    # Callback is `asyncio.selector_events.BaseSelectorEventLoop.add_reader`.
+                                    # Argument is `asyncio.selector_events._SelectorSocketTransport._read_ready`.
+                                    #
+                                    asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.call_soon
+
+                                    # ----- Call `call_soon` -----
+                                    # 4NDCJ
+                                    #
+                                    # Callback is `asyncio.futures._set_result_unless_cancelled`.
+                                    # Argument is the future object created at 3AJ0I.
+                                    # The rationale is to resolve the future object after `connection_made` scheduled at
+                                    # 2M1TX is called.
+                                    #
+                                    asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.call_soon
+
+                                # ===== asyncio.selector_events.BaseSelectorEventLoop._make_socket_transport =====
+                                # Return value is `asyncio.selector_events._SelectorSocketTransport` instance
+                                # created at 5HKJA.
+
+                                # ----- Yield from future object -----
+                                # 3MZFT
+                                #
+                                # The future object is created at 3AJ0I.
+                                #
+                                ```
+                                yield from waiter
+                                ```
+
+                                    # ----- Tick future object's generator -----
+
+                                    # ===== Tick future object's generator =====
+                                    # Yielded value is the future object itself.
+
+                                # ===== Yield from future object =====
+                                # Yielded value is the future object created at 3AJ0I.
+
+                            # ===== Tick coroutine =====
+                            # Coroutine is `asyncio.selector_events.BaseSelectorEventLoop._accept_connection2`.
+                            #
+                            # Yielded value is the future object created at 3AJ0I.
+
+                            # ----- Add done callback to future object -----
+                            # 4L5SK
+                            #
+                            # Callback is `asyncio.tasks.Task._wakeup` that ticks coroutine
+                            # `asyncio.selector_events.BaseSelectorEventLoop._accept_connection2`.
+                            #
+                            asyncio.tasks.Task -> asyncio.futures.Future.add_done_callback
+
+                        # ===== asyncio.tasks.Task._step =====
+
+                    # ===== asyncio.events.Handle._run =====
+
+                # ===== Call callbacks in `self._ready` list  =====
+
+            # ===== asyncio.base_events.BaseEventLoop._run_once =====
+
+            # ----- Call `_run_once` -----
+            asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop._run_once
+
+                # ----- Poll events -----
+                selectors.SelectSelector.select
+
+                # ----- Call `_process_events` -----
+                asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.selector_events.BaseSelectorEventLoop._process_events
+
+                # ----- Add due callbacks to `self._ready` list  -----
+
+                # ----- Call callbacks in `self._ready` list  -----
+
+                    # ----- Call `run` -----
+                    asyncio.events.Handle._run
+
+                        # ----- Call `connection_made` -----
+                        # This is scheduled at 2M1TX.
+                        #
+                        __main__.EchoProtocol.connection_made
+
+                            # ----- Store transport object -----
+
+                        # ===== __main__.EchoProtocol.connection_made =====
+
+                    # ===== asyncio.events.Handle._run =====
+
+                    # ----- Call `run` -----
+                    asyncio.events.Handle._run
+
+                        # ----- Call `add_reader` -----
+                        # 4EZOL
+                        #
+                        # This is scheduled at 3IEW9.
+                        #
+                        # Callback is `asyncio.selector_events._SelectorSocketTransport._read_ready`.
+                        #
+                        asyncio.selector_events.BaseSelectorEventLoop.add_reader
+
+                            # ----- Create `Handle` -----
+                            asyncio.events.Handle.__init__
+
+                            # ----- Register file descriptor to event selector -----
+                            selectors.SelectSelector.register
+
+                        # ===== asyncio.selector_events.BaseSelectorEventLoop.add_reader =====
+
+                    # ===== asyncio.events.Handle._run =====
+
+                    # ----- Call `run` -----
+                    asyncio.events.Handle._run
+
+                        # ----- Call `_set_result_unless_cancelled` -----
+                        # This is scheduled at 4NDCJ.
+                        #
+                        asyncio.futures._set_result_unless_cancelled
+
+                            # ----- Call `set_result` -----
+                            # The future object is created at 3AJ0I.
+                            #
+                            asyncio.futures.Future.set_result
+
+                                # ----- Call `_schedule_callbacks` -----
+                                asyncio.tasks.Task -> asyncio.futures.Future._schedule_callbacks
+
+                                    # ----- For each callback in `self._callbacks` -----
+
+                                        # ----- Call `call_soon`  -----
+                                        # 36UPU
+                                        #
+                                        # Callback is `asyncio.tasks.Task._wakeup` that ticks coroutine
+                                        # `asyncio.selector_events.BaseSelectorEventLoop._accept_connection2`, added at
+                                        # 4L5SK.
+                                        #
+                                        asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.call_soon
+
+                                    # ===== For each callback in `self._callbacks` =====
+
+                                # ===== asyncio.futures.Future._schedule_callbacks =====
+
+                            # ===== asyncio.futures.Future.set_result =====
+
+                        # ===== asyncio.futures._set_result_unless_cancelled =====
+
+                    # ===== asyncio.events.Handle._run =====
+
+                # ===== Call callbacks in `self._ready` list  =====
+
+            # ===== asyncio.base_events.BaseEventLoop._run_once =====
+
+            # ----- Call `_run_once` -----
+            asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop._run_once
+
+                # ----- Poll events -----
+                selectors.SelectSelector.select
+
+                # ----- Call `_process_events` -----
+                asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.selector_events.BaseSelectorEventLoop._process_events
+
+                    # ----- Call `_add_callback` -----
+                    asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop._add_callback
+
+                        # ----- Add event-occuring file descriptor's `Handle` object to `self._ready` list -----
+                        # 3ZYE8
+                        #
+                        # The callback is `asyncio.selector_events._SelectorSocketTransport._read_ready`
+                        # added at 4EZOL.
+
+                    # ===== asyncio.base_events.BaseEventLoop._add_callback =====
+
+                # ----- Add due callbacks to `self._ready` list  -----
+
+                # ----- Call callbacks in `self._ready` list  -----
+
+                    # ----- Call `run` -----
+                    asyncio.events.Handle._run
+
+                        # ----- Call `_wakeup` -----
+                        # This is scheduled at 36UPU.
+                        #
+                        asyncio.tasks.Task._wakeup
+
+                            # ----- Call `_step` -----
+                            asyncio.tasks.Task._step
+
+                                # ----- Tick coroutine -----
+                                # Coroutine is `asyncio.selector_events.BaseSelectorEventLoop._accept_connection2`
+
+                                    # ----- Resume from previous yield point -----
+                                    # Previous yield point is at 3MZFT.
+                                    #
+                                    ```
+                                    yield from waiter
+                                    ```
+
+                                # ===== Tick coroutine =====
+                                # Coroutine is `asyncio.selector_events.BaseSelectorEventLoop._accept_connection2`
+                                #
+                                # The coroutine terminated.
+
+                                # ----- Set the task's future object's result -----
+                                asyncio.tasks.Task -> asyncio.futures.Future.set_result
+
+                            # ===== asyncio.tasks.Task._step =====
+
+                        # ===== asyncio.tasks.Task._wakeup =====
+
+                    # ===== asyncio.events.Handle._run =====
+
+                    # ----- Call `run` -----
+                    asyncio.events.Handle._run
+
+                        # ----- Call `_read_ready` -----
+                        # This is scheduled at 3ZYE8.
+                        #
+                        asyncio.selector_events._SelectorSocketTransport._read_ready
+
+                            # ----- Call `recv` -----
+                            socket.socket -> _socket.socket.recv
+
+                            # ----- Call `data_received` -----
+                            __main__.EchoProtocol.data_received
+
+                                # ----- Write response data -----
+                                asyncio.selector_events._SelectorSocketTransport.write
+
+                                    # ----- Call `send` -----
+                                    socket.socket -> _socket.socket.send
+
+                                # ----- Call `shutdown` -----
+                                socket.socket -> _socket.socket.shutdown
+
+                                # ----- Call `close` -----
+                                asyncio.base_events.Server.close
+
+                                    # ----- Call `_stop_serving` -----
+                                    asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.selector_events.BaseSelectorEventLoop._stop_serving
+
+                                        # ----- Call `remove_reader` -----
+                                        asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.selector_events.BaseSelectorEventLoop.remove_reader
+
+                                        # ----- Call `close` -----
+                                        socket.socket.close
+
+                                    # ===== Call `_stop_serving`=====
+
+                                # ===== asyncio.base_events.Server.close =====
+
+                            # ===== __main__.EchoProtocol.data_received =====
+
+                        # ===== asyncio.selector_events._SelectorSocketTransport._read_ready =====
+
+                    # ===== asyncio.events.Handle._run =====
+
+                # ===== Call callbacks in `self._ready` list  =====
+
+            # ===== asyncio.base_events.BaseEventLoop._run_once =====
+
+            # ----- Call `_run_once` -----
+            asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop._run_once
+
+                # ----- Poll events -----
+                selectors.SelectSelector.select
+
+                # ----- Call `_process_events` -----
+                asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.selector_events.BaseSelectorEventLoop._process_events
+
+                    # ----- Call `_add_callback` -----
+                    asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop._add_callback
+
+                        # ----- Add event-occuring file descriptor's `Handle` object to `self._ready` list -----
+                        # 4DGEB
+                        #
+                        # The callback is `asyncio.selector_events._SelectorSocketTransport._read_ready`
+                        # added at 4EZOL.
+
+                    # ===== asyncio.base_events.BaseEventLoop._add_callback =====
+
+                # ----- Add due callbacks to `self._ready` list  -----
+
+                # ----- Call callbacks in `self._ready` list  -----
+
+                    # ----- Call `run` -----
+                    asyncio.events.Handle._run
+
+                        # ----- Call `_read_ready` -----
+                        # This is scheduled at 4DGEB.
+                        #
+                        asyncio.selector_events._SelectorSocketTransport._read_ready
+
+                            # ----- Call `recv` -----
+                            socket.socket -> _socket.socket.recv
+
+                            # ----- Call `eof_received` -----
+                            __main__.EchoProtocol -> asyncio.protocols.Protocol.eof_received
+
+                            # ----- Call `close` -----
+                            asyncio.selector_events._SelectorSocketTransport -> asyncio.selector_events._SelectorTransport.close
+
+                                # ----- Call `remove_reader` -----
+                                asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.selector_events.BaseSelectorEventLoop.remove_reader
+
+                                # ----- Call `remove_writer` -----
+                                asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.selector_events.BaseSelectorEventLoop.remove_writer
+
+                                # ----- Call `call_soon` -----
+                                # 4H6TU
+                                #
+                                # Callback is `asyncio.selector_events._SelectorTransport._call_connection_lost`.
+                                #
+                                asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.call_soon
+
+                            # ===== asyncio.selector_events._SelectorTransport.close =====
+
+                        # ===== asyncio.selector_events._SelectorSocketTransport._read_ready =====
+
+                    # ===== asyncio.events.Handle._run =====
+
+                # ===== Call callbacks in `self._ready` list  =====
+
+            # ===== asyncio.base_events.BaseEventLoop._run_once =====
+
+            # ----- Call `_run_once` -----
+            asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop._run_once
+
+                # ----- Poll events -----
+                selectors.SelectSelector.select
+
+                # ----- Call `_process_events` -----
+                asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.selector_events.BaseSelectorEventLoop._process_events
+
+                # ----- Add due callbacks to `self._ready` list  -----
+
+                # ----- Call callbacks in `self._ready` list  -----
+
+                    # ----- Call `run` -----
+                    asyncio.events.Handle._run
+
+                        # ----- Call `_call_connection_lost` -----
+                        # This is scheduled at 4H6TU.
+                        #
+                        asyncio.selector_events._SelectorTransport._call_connection_lost
+
+                            # ----- Call `connection_lost` -----
+                            __main__.EchoProtocol -> asyncio.protocols.BaseProtocol.connection_lost
+
+                            # ----- Call `close` -----
+                            socket.socket.close
+
+                            # ----- Call `_detach` -----
+                            asyncio.base_events.Server._detach
+
+                                # ----- Call `_wakeup` -----
+                                asyncio.base_events.Server._wakeup
+
+                                    # ----- For each future object in `self._waiters` -----
+
+                                        # ----- Call `set_result` -----
+                                        asyncio.futures.Future.set_result
+
+                                            # ----- Call `_schedule_callbacks` -----
+                                            asyncio.tasks.Task -> asyncio.futures.Future._schedule_callbacks
+
+                                                # ----- For each callback in `self._callbacks` -----
+
+                                                    # ----- Call `call_soon`  -----
+                                                    # 75I36
+                                                    #
+                                                    # Callback is `asyncio.tasks.Task._wakeup` that ticks coroutine
+                                                    # `asyncio.base_events.Server.wait_closed`, added at 1UFQ3.
+                                                    #
+                                                    asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.call_soon
+
+                                                # ===== For each callback in `self._callbacks` =====
+
+                                            # ===== asyncio.futures.Future._schedule_callbacks =====
+
+                                        # ===== asyncio.futures.Future.set_result =====
+
+                                    # ===== For each future object in `self._waiters` =====
+
+                                # ===== asyncio.base_events.Server._wakeup =====
+
+                            # ===== asyncio.base_events.Server._detach =====
+
+                        # ===== asyncio.selector_events._SelectorTransport._call_connection_lost =====
+
+                    # ===== asyncio.events.Handle._run =====
+
+                # ===== Call callbacks in `self._ready` list  =====
+
+            # ===== asyncio.base_events.BaseEventLoop._run_once =====
+
+            # ----- Call `_run_once` -----
+            asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop._run_once
+
+                # ----- Poll events -----
+                selectors.SelectSelector.select
+
+                # ----- Call `_process_events` -----
+                asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.selector_events.BaseSelectorEventLoop._process_events
+
+                # ----- Add due callbacks to `self._ready` list  -----
+
+                # ----- Call callbacks in `self._ready` list  -----
+
+                    # ----- Call `run` -----
+                    asyncio.events.Handle._run
+
+                        # ----- Call `_wakeup` -----
+                        # This is scheduled at 75I36.
+                        #
+                        asyncio.tasks.Task._wakeup
+
+                            # ----- Call `_step` -----
+                            asyncio.tasks.Task._step
+
+                                # ----- Tick coroutine -----
+                                # Coroutine is `asyncio.base_events.Server.wait_closed`.
+
+                                    # ----- Resume from previous yield point -----
+                                    # Previous yield point is at 24VNY.
+                                    #
+                                    ```
+                                    yield from waiter
+                                    ```
+
+                                # ===== Tick coroutine =====
+                                # Coroutine is `asyncio.base_events.Server.wait_closed`.
+                                # The coroutine terminated.
+
+                                # ----- Set the task's future object's result -----
+                                asyncio.tasks.Task -> asyncio.futures.Future.set_result
+
+                                    # ----- Call `_schedule_callbacks` -----
+                                    asyncio.tasks.Task -> asyncio.futures.Future._schedule_callbacks
+
+                                        # ----- For each callback in `self._callbacks` -----
+
+                                            # ----- Call `call_soon`  -----
+                                            # 781JT
+                                            #
+                                            # Callback is `asyncio.base_events._run_until_complete_cb` added at 2FK1W.
+                                            #
+                                            asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.call_soon
+
+                                        # ===== For each callback in `self._callbacks` =====
+
+                                    # ===== asyncio.futures.Future._schedule_callbacks =====
+
+                                # ===== asyncio.futures.Future.set_result =====
+
+                            # ===== asyncio.tasks.Task._wakeup =====
+
+                        # ===== asyncio.tasks.Task._wakeup =====
+
+                    # ===== asyncio.events.Handle._run =====
+
+                # ===== Call callbacks in `self._ready` list  =====
+
+            # ===== asyncio.base_events.BaseEventLoop._run_once =====
+
+            # ----- Call `_run_once` -----
+            asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop._run_once
+
+                # ----- Poll events -----
+                selectors.SelectSelector.select
+
+                # ----- Call `_process_events` -----
+                asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.selector_events.BaseSelectorEventLoop._process_events
+
+                # ----- Add due callbacks to `self._ready` list  -----
+
+                # ----- Call callbacks in `self._ready` list  -----
+
+                    # ----- Call `run` -----
+                    asyncio.events.Handle._run
+
+                        # ----- Call `_run_until_complete_cb` -----
+                        # This is scheduled at 781JT.
+                        #
+                        asyncio.base_events._run_until_complete_cb
+
+                            # ----- Call `stop` -----
+                            asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.stop
+
+                        # ===== asyncio.base_events._run_until_complete_cb =====
+
+                    # ===== asyncio.events.Handle._run =====
+
+                # ===== Call callbacks in `self._ready` list  =====
+
+            # ===== asyncio.base_events.BaseEventLoop._run_once =====
+
+        # ===== asyncio.windows_events._WindowsSelectorEventLoop -> asyncio.base_events.BaseEventLoop.run_forever
+
+        # ----- Call `remove_done_callback` -----
+        # Remove callback `asyncio.base_events._run_until_complete_cb` added at 2FK1W.
+        #
+        asyncio.tasks.Task -> asyncio.futures.Future.remove_done_callback
+
+        # ----- Get future object's result -----
+        # The future object is created at 4GPYM.
+
+    # ===== asyncio.base_events.BaseEventLoop.run_until_complete =====
+    # Return value is the result of the future object created at 4GPYM.
+
+# ===== __main__.main =====
